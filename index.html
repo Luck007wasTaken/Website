@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
+    <!-- Include the Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <style>
+        /* Custom styles for the theater-like effect and dark/light mode */
         body {
             background-color: #000;
             overflow: hidden;
             transition: background-color 0.3s;
         }
 
-       
+        .theater {
+            animation: theater-effect 4s ease-out forwards;
+        }
 
         @keyframes theater-effect {
             0% {
@@ -52,6 +57,7 @@
             z-index: 100;
         }
 
+        /* Hamburger menu styles */
         .menu-icon {
             position: fixed;
             top: 20px;
@@ -62,15 +68,15 @@
 
         .menu-slider {
             position: fixed;
-            top: 0;
-            right: -260px;
+            top: 0; /* Adjusted to open only at the top */
+            right: -260px; /* Start with the menu off-screen to the right */
             width: 260px;
-            height: 50px;
-            background-color: #111;
+            height: 50px; /* Adjusted to only show a line at the top */
+            background-color: #111; /* Background color for the menu */
             z-index: 50;
-            transition: right 0.3s, border-radius 0.3s;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
+            transition: right 0.3s, border-radius 0.3s; /* Animate the right property and border-radius */
+            border-top-left-radius: 10px; /* Curved top-left corner */
+            border-bottom-left-radius: 10px; /* Curved bottom-left corner */
         }
 
         .menu-icon i {
@@ -95,6 +101,7 @@
             color: #fff;
         }
 
+        /* CSS for the money mouth emoji */
         .money-emoji {
             position: fixed;
             top: 20px;
@@ -103,6 +110,7 @@
             cursor: pointer;
         }
 
+        /* CSS for the money particles */
         .money-particle {
             position: absolute;
             font-size: 24px;
@@ -120,13 +128,14 @@
             }
         }
 
+        /* CSS for the news logo */
         .news-logo-bottom {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #ff0000;
-            color: #fff;
+            background-color: #ff0000; /* Red background for the siren */
+            color: #fff; /* White text color */
             padding: 10px 0;
             text-align: center;
             z-index: 1000;
@@ -137,37 +146,49 @@
             margin-right: 10px;
         }
 
+        /* CSS for the marquee text */
         marquee {
             font-size: 16px;
             white-space: nowrap;
             overflow: hidden;
-            padding-right: 10px;
+            padding-right: 10px; /* Add padding to avoid text cutoff */
         }
     </style>
 </head>
 <body class="light-mode">
+    <!-- Discord logo -->
     <div class="discord-icon" onclick="openDiscord()">
         <i class="fab fa-discord"></i>
     </div>
 
+    <!-- Hamburger menu icon -->
     <div class="menu-icon" id="hamburger" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
     </div>
 
-    <div class="menu-slider" id="menuSlider">
-        <div class="menu-slider-content">
-            <div class="flex items-center">
-                <a href="#" data-link="home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <span style="margin-left: 10px;"></span>
-                <a href="#" data-link="credits">
-                    <i class="fas fa-award"></i> Credits
-                </a>
-            </div>
+   <!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<div class="menu-slider" id="menuSlider">
+    <div class="menu-slider-content">
+        <div class="flex items-center">
+            <a href="#" data-link="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <span style="margin-left: 10px;"></span>
+            <a href="#" data-link="credits">
+                <i class="fas fa-award"></i> Credits
+            </a>
         </div>
+        <!-- Add more menu items as needed -->
     </div>
+</div>
 
+
+
+
+    <!-- Main content -->
     <div class="theater fixed inset-0 flex items-center justify-center text-white z-50">
         <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
             <h1 class="text-3xl font-bold mb-4">Chatting Rules</h1>
@@ -190,12 +211,17 @@
 
             <div class="mt-8">
                 <h2 class="text-xl font-bold">Ivy's Shop</h2>
+                <!-- Add content for Ivy's shop here -->
             </div>
         </div>
     </div>
 
-    <div class="money-emoji" onmouseover="spawnMoney()"></div>
+    <!-- Money mouth emoji -->
+    <div class="money-emoji" onmouseover="spawnMoney()">
+        
+    </div>
 
+    <!-- News logo with scrolling text at the bottom -->
     <div class="news-logo-bottom">
         <i class="fas fa-siren"></i>
         <marquee behavior="scroll" direction="left" scrollamount="10">
@@ -204,38 +230,42 @@
     </div>
 
     <script>
-       let menuOpen = false;
+       // JavaScript code
+let menuOpen = false;
 
-        function toggleMenu() {
-            const menuSlider = document.getElementById('menuSlider');
-            menuOpen = !menuOpen;
+function toggleMenu() {
+    const menuSlider = document.getElementById('menuSlider');
+    menuOpen = !menuOpen;
 
-            if (menuOpen) {
-                menuSlider.style.right = '0';
-            } else {
-                menuSlider.style.right = '-260px';
-            }
-        }
+    if (menuOpen) {
+        menuSlider.style.right = '0';
+    } else {
+        menuSlider.style.right = '-260px';
+    }
+}
 
-        function redirectTo(link) {
-            if (link === 'home') {
-                window.location.href = 'ivy.html';
-            } else if (link === 'credits') {
-                window.location.href = 'credits.html';
-            }
-        }
+function redirectTo(link) {
+    if (link === 'home') {
+        window.location.href = 'ivy.html'; // Replace with your actual homepage URL
+    } else if (link === 'credits') {
+        window.location.href = 'credits.html'; // Replace with your actual credits page URL
+    }
+}
 
-        const menuLinks = document.querySelectorAll('.menu-slider-content a');
-        menuLinks.forEach(function (link) {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetLink = link.getAttribute('data-link');
-                toggleMenu();
-                setTimeout(() => {
-                    redirectTo(targetLink);
-                }, 300);
-            });
-        });
+// Close menu when a link is clicked
+const menuLinks = document.querySelectorAll('.menu-slider-content a');
+menuLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetLink = link.getAttribute('data-link');
+        toggleMenu();
+        setTimeout(() => {
+            redirectTo(targetLink);
+        }, 300); // Adjust the delay as needed
+    });
+});
+
+        
     </script>
 </body>
 </html>
