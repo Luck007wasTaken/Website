@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits Page</title>
+    <!-- Include the Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        /* Custom styles for the theater-like effect and dark/light mode */
+        body {
+            background-color: #000;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .theater {
+            animation: theater-effect 4s ease-out forwards;
+        }
+
+        @keyframes theater-effect {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .dark-mode .sun-icon {
+            display: inline-block;
+        }
+
+        .dark-mode .moon-icon {
+            display: none;
+        }
+
+        .light-mode .moon-icon {
+            display: inline-block;
+        }
+
+        .light-mode .sun-icon {
+            display: none;
+        }
+
+        /* Hamburger menu styles */
+        .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .menu-slider {
+            position: fixed;
+            top: 0;
+            right: -260px;
+            width: 260px;
+            height: 50px;
+            background-color: #111;
+            z-index: 50;
+            transition: right 0.3s, border-radius 0.3s;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .menu-icon i {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .menu-slider-content {
+            padding: 20px;
+            color: #fff;
+        }
+
+        .menu-slider-content a {
+            display: block;
+            margin-bottom: 10px;
+            color: #7289DA;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .menu-slider-content a:hover {
+            color: #fff;
+        }
+
+        /* CSS for the money mouth emoji */
+        .money-emoji {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* CSS for the money particles */
+        .money-particle {
+            position: absolute;
+            font-size: 24px;
+            animation: dropMoney 2s linear;
+        }
+
+        @keyframes dropMoney {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Hamburger menu icon -->
+    <div class="menu-icon" id="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Hamburger menu slider -->
+    <div class="menu-slider" id="menuSlider">
+        <div class="menu-slider-content">
+            <div class="flex items-center">
+                <a href="#" onclick="redirectToHomePage()">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <span style="margin-left: 10px;"></span>
+                <a href="#" onclick="redirectToCreditsPage()">
+                    <i class="fas fa-award"></i> Credits
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="theater fixed inset-0 flex items-center justify-center text-white z-50">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <div class="money-emoji" onmouseover="animateMoney()">&#129297;</div>
+            <h1 class="text-5xl font-bold mb-4">Credits</h1>
+            <p class="text-xl">This page is made by Musksus.</p>
+            <p class="text-xl">I also provide paid work services.</p>
+            <p class="text-xl">Feel free to contact me for any projects you have in mind.</p>
+
+            <!-- Additional content for the Credits page -->
+            <div class="mt-8">
+                <h2 class="text-3xl font-bold">SERVICES</h2>
+                <ul class="list-disc list-inside text-2xl mb-4">
+                    <li>I CAN CODE ANYTHING YOU WANT DM ME ON DC</li>
+                    <li>DISCORD: <a href="https://discord.com/users/1150974186320310312" class="text-blue-500" target="_blank">mUSksUS._</a></li></li>
+                    <!-- Add more credits as needed -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let menuOpen = false;
+
+        function toggleMode() {
+            const body = document.body;
+            const sunIcon = document.querySelector('.fa-sun');
+
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline-block';
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline-block';
+            }
+        }
+
+        function toggleMenu() {
+            const menuSlider = document.getElementById('menuSlider');
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                menuSlider.style.right = '0';
+            } else {
+                menuSlider.style.right = '-260px';
+            }
+        }
+
+        function redirectToHomePage() {
+            window.location.href = 'ivy.html'; // Replace with your actual homepage URL
+        }
+
+        function redirectToCreditsPage() {
+            window.location.href = 'credits.html';
+        }
+
+        function animateMoney() {
+            const moneyEmoji = document.querySelector('.money-emoji');
+
+            for (let i = 0; i < 5; i++) { // Fewer money particles
+                const moneyParticle = document.createElement('div');
+                moneyParticle.className = 'money-particle';
+                moneyParticle.innerHTML = '&#128176;'; // Dollar sign emoji
+
+                const x = Math.random() * 40 - 20; // Random horizontal position
+                const y = Math.random() * 40 - 20; // Random vertical position
+
+                moneyParticle.style.left = x + 'px';
+                moneyParticle.style.top = y + 'px';
+
+                moneyEmoji.appendChild(moneyParticle);
+
+                setTimeout(() => {
+                    moneyEmoji.removeChild(moneyParticle);
+                }, 2000); // Slower spawn and remove after 2 seconds
+            }
+        }
+    </script>
+</body>
+</html>

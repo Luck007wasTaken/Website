@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <!-- Include the Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        /* Custom styles for the theater-like effect and dark/light mode */
+        body {
+            background-color: #000;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .theater {
+            animation: theater-effect 4s ease-out forwards;
+        }
+
+        @keyframes theater-effect {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .dark-mode .sun-icon {
+            display: inline-block;
+        }
+
+        .dark-mode .moon-icon {
+            display: none;
+        }
+
+        .light-mode .moon-icon {
+            display: inline-block;
+        }
+
+        .light-mode .sun-icon {
+            display: none;
+        }
+
+        .discord-icon {
+            font-size: 24px;
+            color: #7289DA;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        /* Hamburger menu styles */
+        .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .menu-slider {
+            position: fixed;
+            top: 0; /* Adjusted to open only at the top */
+            right: -260px; /* Start with the menu off-screen to the right */
+            width: 260px;
+            height: 50px; /* Adjusted to only show a line at the top */
+            background-color: #111; /* Background color for the menu */
+            z-index: 50;
+            transition: right 0.3s, border-radius 0.3s; /* Animate the right property and border-radius */
+            border-top-left-radius: 10px; /* Curved top-left corner */
+            border-bottom-left-radius: 10px; /* Curved bottom-left corner */
+        }
+
+        .menu-icon i {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .menu-slider-content {
+            padding: 20px;
+            color: #fff;
+        }
+
+        .menu-slider-content a {
+            display: block;
+            margin-bottom: 10px;
+            color: #7289DA;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .menu-slider-content a:hover {
+            color: #fff;
+        }
+
+        /* CSS for the money mouth emoji */
+        .money-emoji {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* CSS for the money particles */
+        .money-particle {
+            position: absolute;
+            font-size: 24px;
+            animation: dropMoney 2s linear;
+        }
+
+        @keyframes dropMoney {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+        }
+
+        /* CSS for the news logo */
+        .news-logo-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ff0000; /* Red background for the siren */
+            color: #fff; /* White text color */
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .news-logo-bottom i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        /* CSS for the marquee text */
+        marquee {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            padding-right: 10px; /* Add padding to avoid text cutoff */
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Discord logo -->
+    <div class="discord-icon" onclick="openDiscord()">
+        <i class="fab fa-discord"></i>
+    </div>
+
+    <!-- Hamburger menu icon -->
+    <div class="menu-icon" id="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<!-- Hamburger menu slider -->
+<div class="menu-slider" id="menuSlider">
+    <div class="menu-slider-content">
+        <div class="flex items-center">
+            <a href="#" data-link="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <span style="margin-left: 10px;"></span>
+            <a href="#" data-link="credits">
+                <i class="fas fa-award"></i> Credits
+            </a>
+        </div>
+        <!-- Add more menu items as needed -->
+    </div>
+</div>
+
+
+
+
+    <!-- Main content -->
+    <div class="theater fixed inset-0 flex items-center justify-center text-white z-50">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4">Chatting Rules</h1>
+            <ol class="list-decimal list-inside text-lg mb-6">
+                <li class="mb-2">Ask your question in the first message.</li>
+                <li class="mb-2">I don't have time to help you with your problem. Please use <a href="https://www.google.com" class="text-blue-500" target="_blank">google.com</a> to solve it.</li>
+                <li class="mb-2">If you need help with my discord server: Please use the ticket system. My supporter is always there to help you.</li>
+                <li class="mb-2">If you are looking for something specific: Please don't ask me if I know where you can get it.</li>
+                <li class="mb-2">Please be respectful with my time.</li>
+            </ol>
+            <p>If you are not following these rules, you won't get any response. These rules are there to save my time. Many people are messaging me every day, and my time is limited. I hope you understand me.</p>
+
+            <div class="mt-8">
+                <h2 class="text-xl font-bold">Contact Information:</h2>
+                <ul class="list-disc list-inside text-lg mb-4">
+                    <li>Luck007: <a href="https://discord.com/users/921098406196310047" class="text-blue-500" target="_blank">luck007#5775</a></li>
+                    <li>Ivy: <a href="https://discord.com/users/1101210284498092052" class="text-blue-500" target="_blank">Ivy.#6646</a></li>
+                </ul>
+            </div>
+
+            <div class="mt-8">
+                <h2 class="text-xl font-bold">Ivy's Shop</h2>
+                <!-- Add content for Ivy's shop here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Money mouth emoji -->
+    <div class="money-emoji" onmouseover="spawnMoney()">
+        
+    </div>
+
+    <!-- News logo with scrolling text at the bottom -->
+    <div class="news-logo-bottom">
+        <i class="fas fa-siren"></i>
+        <marquee behavior="scroll" direction="left" scrollamount="10">
+           🚨 Breaking News: IVY IS A MALE 🔥AND HE IS 18 OMG OMG OMG 🤑
+        </marquee>
+    </div>
+
+    <script>
+       // JavaScript code
+let menuOpen = false;
+
+function toggleMenu() {
+    const menuSlider = document.getElementById('menuSlider');
+    menuOpen = !menuOpen;
+
+    if (menuOpen) {
+        menuSlider.style.right = '0';
+    } else {
+        menuSlider.style.right = '-260px';
+    }
+}
+
+function redirectTo(link) {
+    if (link === 'home') {
+        window.location.href = 'ivy.html'; // Replace with your actual homepage URL
+    } else if (link === 'credits') {
+        window.location.href = 'credits.html'; // Replace with your actual credits page URL
+    }
+}
+
+// Close menu when a link is clicked
+const menuLinks = document.querySelectorAll('.menu-slider-content a');
+menuLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetLink = link.getAttribute('data-link');
+        toggleMenu();
+        setTimeout(() => {
+            redirectTo(targetLink);
+        }, 300); // Adjust the delay as needed
+    });
+});
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Command Prompt with Music Player</title>
+    <!-- Include the Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        /* Custom styles for the theater-like effect and dark/light mode */
+        body {
+            background-color: #000;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .theater {
+            animation: theater-effect 4s ease-out forwards;
+        }
+
+        @keyframes theater-effect {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .dark-mode .sun-icon {
+            display: inline-block;
+        }
+
+        .dark-mode .moon-icon {
+            display: none;
+        }
+
+        .light-mode .moon-icon {
+            display: inline-block;
+        }
+
+        .light-mode .sun-icon {
+            display: none;
+        }
+
+        /* Discord icon styles (you can adjust as needed) */
+        .discord-icon {
+            font-size: 24px;
+            color: #7289DA;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        /* Command prompt styles */
+        .command-prompt {
+            width: 400px;
+            height: 200px;
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            color: #00FF00; /* Green text color */
+            margin: 0 auto; /* Center the command prompt */
+            margin-top: 50px; /* Adjust vertical position as needed */
+        }
+
+        .command-line {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .command-line li {
+            margin-bottom: 5px;
+        }
+
+        /* Typing animation styles */
+        .typing-animation::after {
+            content: '';
+            animation: typing 4s steps(30, end);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            width: 0;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Music player styles */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+        }
+
+        .music-player-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .music-player-controls i {
+            font-size: 24px;
+            color: #00FF00;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .music-player-progress {
+            flex: 1;
+            height: 10px;
+            background-color: #444;
+            position: relative;
+        }
+
+        .music-player-progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #00FF00;
+        }
+
+        /* Audio player styles */
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #111;
+            border-top: 1px solid #444;
+            border-radius: 10px 10px 0 0;
+            padding: 10px;
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Discord logo -->
+    <div class="discord-icon" onclick="openDiscord()">
+        <i class="fab fa-discord"></i>
+    </div>
+
+    <!-- Main content with animated command prompt -->
+    <div class="theater fixed inset-0 flex items-center justify-center text-white z-50">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4">Command Prompt</h1>
+            <div class="command-prompt">
+                <ul class="command-line">
+                    <li class="typing-animation">Welcome to the command prompt.</li>
+                    <li class="typing-animation">Type your commands here.</li>
+                    <li class="typing-animation">For example: <code>help</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Music player -->
+    <div class="music-player">
+        <div class="music-player-controls">
+            <i class="fas fa-play" onclick="playMusic()"></i>
+            <i class="fas fa-pause" onclick="pauseMusic()"></i>
+            <i class="fas fa-stop" onclick="stopMusic()"></i>
+        </div>
+        <div class="music-player-progress">
+            <div class="music-player-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Audio player -->
+    <div class="audio-player">
+        <audio id="audioPlayer" controls>
+            <source src="song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        let musicPlaying = false;
+        let musicInterval;
+
+        function openDiscord() {
+            window.open('https://discord.gg/hqd', '_blank');
+        }
+
+        function playMusic() {
+            if (!musicPlaying) {
+                const audio = document.getElementById('audioPlayer');
+                audio.play();
+                musicInterval = setInterval(increaseProgress, 1000);
+                musicPlaying = true;
+            }
+        }
+
+        function pauseMusic() {
+            clearInterval(musicInterval);
+            const audio = document.getElementById('audioPlayer');
+            audio.pause();
+            musicPlaying = false;
+        }
+
+        function stopMusic() {
+            clearInterval(musicInterval);
+            const audio = document.getElementById('audioPlayer');
+            audio.pause();
+            audio.currentTime = 0;
+            musicPlaying = false;
+            resetProgress();
+        }
+
+        function increaseProgress() {
+            const progressBar = document.querySelector('.music-player-progress-bar');
+            if (progressBar) {
+                const audio = document.getElementById('audioPlayer');
+                const currentWidth = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${currentWidth}%`;
+            }
+        }
+
+        function resetProgress() {
+            const progressBar = document.querySelector('.music-player-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = '0';
+            }
+        }
+    </script>
+</body>
+</html>
